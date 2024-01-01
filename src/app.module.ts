@@ -10,6 +10,7 @@ import { QuestionService } from './question/question.service';
 import { DatabaseModule } from './database/database.module';
 import { MongooseModule } from '@nestjs/mongoose';
 import { config } from 'dotenv';
+import { CronService } from './cron/cron.service';
 config();
 @Module({
   imports: [AdminModule,DatabaseModule,MongooseModule.forRootAsync({
@@ -21,6 +22,10 @@ config();
   }),
   ],
   controllers: [AppController,AdminController],
-  providers: [AppService,QuestionService,TelegramBotService,AdminService],
+  providers: [AppService,QuestionService,TelegramBotService,AdminService, CronService],
 })
-export class AppModule {}
+export class AppModule {
+  constructor(private readonly cronService: CronService) {
+    this.cronService.startCronJob();
+  }
+}
