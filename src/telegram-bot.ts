@@ -40,7 +40,7 @@ export class TelegramBotService {
 
     this.bot.on('message', async (msg) => {
       const chatId = msg.chat.id;
-      const botUsername = 'moyemoyesoumya_bot'; 
+      const botUsername = 'moyemoyesoumya_bot' || 'codereaper_bot'; 
     
       try {
         if (msg.text && msg.text.startsWith(`@${botUsername} find`)) {
